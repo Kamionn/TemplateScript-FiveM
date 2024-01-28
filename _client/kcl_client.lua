@@ -18,6 +18,25 @@ if Config.Framework == "ESX" then
      AddEventHandler('esx:playerLoaded', function(xPlayer)
           ESX.PlayerData = xPlayer
      end)
+
+     function OpenMenuBuildeurRageUI(playerData)
+         local OpenMenuBuildeur = RageUI.CreateMenu('aaa', 'playerDat', 5, 5, nil, nil, 0, 0, 0, 0)
+         RageUI.Visible(OpenMenuBuildeur, not RageUI.Visible(OpenMenuBuildeur))
+     
+         Citizen.CreateThread(function()
+             while OpenMenuBuildeur do
+                 Citizen.Wait(0)
+                
+                 RageUI.IsVisible(OpenMenuBuildeur, function()
+                     RageUI.Line()
+                 end)
+     
+                 if not RageUI.Visible(OpenMenuBuildeur, OpenMenuBuildeur) then
+                     OpenMenuBuildeur = RMenu:DeleteType('OpenMenuBuildeur', true)
+                 end
+             end
+         end)
+     end
  
 elseif Config.Framework == "ESSENTIAL" then 
      Esx = nil
